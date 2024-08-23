@@ -85,13 +85,12 @@ class NanoTrack:
 
         return matches, unmatched_detections, unmatched_tracks
 
-def _update_track(self, track, detection):
-    if track['age'] > 1:
-        track['velocity'] = detection[:4] - track['bbox'][:4]
-    track['bbox'] = detection
-    track['hits'] += 1
-    track['time_since_update'] = 0
-
+    def _update_track(self, track, detection):
+        track['bbox'] = detection
+        track['hits'] += 1
+        track['time_since_update'] = 0
+        if track['age'] > 1:
+            track['velocity'] = detection[:4] - track['bbox'][:4]
 
     def _initiate_track(self, detection):
         self.track_id_count += 1
@@ -104,16 +103,16 @@ def _update_track(self, track, detection):
             'velocity': np.zeros(4)
         })
 
-  @staticmethod
-def iou(boxA, boxB):
-    xA = max(boxA[0], boxB[0])
-    yA = max(boxA[1], boxB[1])
-    xB = min(boxA[2], boxB[2])  # Corrected from boxB[2] to boxA[2]
-    yB = min(boxA[3], boxB[3])  # Corrected from boxB[3] to boxA[3]
+    @staticmethod
+    def iou(boxA, boxB):
+        xA = max(boxA[0], boxB[0])
+        yA = max(boxA[1], boxB[1])
+        xB = min(boxA[2], boxB[2])
+        yB = min(boxA[3], boxB[3])
 
-    interArea = max(0, xB - xA) * max(0, yB - yA)
-    boxAArea = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
-    boxBArea = (boxB[2] - boxB[0]) * (boxB[3] - boxB[1])
+        interArea = max(0, xB - xA + 1) * max(0, yB - yA + 1)
+        boxAArea = (boxA[2] - boxA[0] + 1) * (boxA[3] - boxA[1] + 1)
+        boxBArea = (boxB[2] - boxB[0] + 1) * (boxB[3] - boxB[1] + 1)
 
-    iou = interArea / float(boxAArea + boxBArea - interArea + 1e-6)
-    return iou
+        iou = interArea / float(boxAArea + boxBArea - interArea)
+        return iou
