@@ -1,7 +1,6 @@
 import numpy as np
-from typing import List, Tuple, Optional
+from typing import List
 from scipy.optimize import linear_sum_assignment
-
 
 class NanoTrack:
     def __init__(self, iou_threshold: float = 0.5, max_age: int = 5, min_hits: int = 3):
@@ -22,9 +21,17 @@ class NanoTrack:
         # Match detections to existing tracks
         matched, unmatched_dets, unmatched_trks = self._associate_detections_to_tracks(detections)
 
+        # Debug: Print matched indices
+        #print("Matched indices:", matched)
+        #print("Unmatched detections:", unmatched_dets)
+        #print("Unmatched tracks:", unmatched_trks)
+
         # Update matched tracks
         for trk_idx, det_idx in matched:
-            self._update_track(self.tracks[trk_idx], detections[det_idx])
+            if trk_idx < len(self.tracks) and det_idx < len(detections):
+                self._update_track(self.tracks[trk_idx], detections[det_idx])
+            #else:
+            #print(f"Skipping update for trk_idx: {trk_idx}, det_idx: {det_idx}")
 
         # Create new tracks for unmatched detections
         for det_idx in unmatched_dets:
@@ -36,7 +43,6 @@ class NanoTrack:
         return [trk['bbox'] for trk in self.tracks if trk['hits'] >= self.min_hits]
 
     def _predict(self, track):
-        # Simple constant velocity model
         if track['age'] > 0:
             track['bbox'][:4] += track['velocity']
         track['age'] += 1
@@ -102,7 +108,7 @@ class NanoTrack:
         xA = max(boxA[0], boxB[0])
         yA = max(boxA[1], boxB[1])
         xB = min(boxA[2], boxB[2])
-        yB = min(boxA[3], boxB[3])
+        yB = min(boxB[3], boxB[3])
 
         interArea = max(0, xB - xA) * max(0, yB - yA)
         boxAArea = (boxA[2] - boxA[0]) * (boxA[3] - boxA[1])
@@ -110,11 +116,3 @@ class NanoTrack:
 
         iou = interArea / float(boxAArea + boxBArea - interArea + 1e-6)
         return iou
-
-    def get_tracks(self):
-        return [trk['bbox'] for trk in self.tracks if trk['hits'] >= self.min_hits]
-
-    def clear_tracks(self):
-        self.tracks = []
-        self.frame_count = 0
-        self.track_id_count = 0

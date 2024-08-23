@@ -1,0 +1,10 @@
+setup.py
+nanotrack/__init__.py
+nanotrack/detector.py
+nanotrack/main1.py
+nanotrack/nanotrack.py
+nanotrack.egg-info/PKG-INFO
+nanotrack.egg-info/SOURCES.txt
+nanotrack.egg-info/dependency_links.txt
+nanotrack.egg-info/requires.txt
+nanotrack.egg-info/top_level.txt

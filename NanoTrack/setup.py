@@ -6,7 +6,7 @@ setup(
     author="RAGUL T , KARTHICK RAJA E",
     author_email="tragulragul@gmail.com , e.karthickraja2004@gmail.com",
     description="A lightweight object detection and tracking package",
-    url="https://github.com/yourusername/nanotrack",  # Update with your actual GitHub repo URL
+    url="https://github.com/ragultv/NanoTrack",  # Update with your actual GitHub repo URL
     packages=find_packages(),
     python_requires=">=3.7",
     install_requires=[
