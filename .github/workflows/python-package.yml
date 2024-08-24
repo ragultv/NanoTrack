@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -22,15 +21,27 @@ jobs:
     - uses: actions/checkout@v4
     
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4  # Updated to the latest version
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install flake8 pytest numpy  # Ensure numpy is installed
-        if [ -f requires.txt ]; then pip install -r requires.txt; fi
+        python -m pip install flake8 pytest numpy
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Install package
+      run: |
+        pip install -e .
+
+    - name: Debug information
+      run: |
+        pwd
+        ls -R
+        echo $PYTHONPATH
+        python -c "import sys; print(sys.path)"
+        python -c "import nanotrack; print(nanotrack.__file__)"
     
     - name: Lint with flake8
       run: |
