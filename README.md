@@ -8,3 +8,6 @@ You can install NanoTrack directly from the GitHub repository:
 
 ```bash
 pip install git+https://github.com/ragultv/nanotrack.git
+
+
+pip install nanotrack
