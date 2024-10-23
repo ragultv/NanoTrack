@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: nanotrack
+Version: 0.2.0
+Summary: A lightweight object detection and tracking package with added Kalman filter functionality
+Home-page: https://github.com/ragultv/NanoTrack
+Author: RAGUL T, KARTHICK RAJA E
+Author-email: tragulragul@gmail.com, e.karthickraja2004@gmail.com
+Requires-Python: >=3.7
+Requires-Dist: numpy>=1.18.0
+Requires-Dist: opencv-python>=4.5.0
+Requires-Dist: torch>=1.7.0
+Requires-Dist: torchvision>=0.8.0
+Requires-Dist: scipy>=1.5.0
