@@ -113,7 +113,7 @@ For issues, feature requests, or questions, feel free to:
 
 ---
 
-### **Let’s Track Smarter, Faster, and Lighter with NanoTrack!** 🚀
+### **Let’s Track Smarter, Faster, and Lighter with NanoTrack!** 
 
 ---
 
