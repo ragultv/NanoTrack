@@ -10,7 +10,6 @@
 - 🚀 **Lightweight**: Optimized for minimal computational overhead.  
 - 🎯 **Seamless Integration**: Fully compatible with YOLOv5 and YOLOv8.  
 - ⚡ **Real-Time Performance**: Fast and accurate tracking for video streams.  
-- 🛠️ **Simple API**: Easy-to-use interfaces for rapid development.  
 - 📹 **Video & Stream Support**: Works with video files and live camera streams.
 
 ---
